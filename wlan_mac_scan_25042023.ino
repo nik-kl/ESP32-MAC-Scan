@@ -75,7 +75,7 @@ void sniffer(void* buf, wifi_promiscuous_pkt_type_t type) {
     Serial.print(mac);
     Serial.print(", RSSI: ");
     Serial.print(rssi);
-    Serial.println(" dBm");
+    Serial.println(" dBm;");
 
     if(listcount >= macListSize) {
       Serial.println("Too many addresses");
@@ -147,7 +147,8 @@ void loop() {
     listcount = 0;
     curChannel++;
     }
-    Serial.println(String(count) + " | " + String(cMac80) + " Adressen gefunden!");
+    Serial.println(String(count) + " Adressen gefunden!");
+    Serial.println("-----");
     count = 0;
     cMac80 = 0;
     delay(5000);
