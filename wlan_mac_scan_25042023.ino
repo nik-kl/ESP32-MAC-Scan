@@ -71,11 +71,13 @@ void sniffer(void* buf, wifi_promiscuous_pkt_type_t type) {
 
     // Get the RSSI value and print the MAC address and RSSI value
     int8_t rssi = p->rx_ctrl.rssi;
-    Serial.print("MAC: ");
+    //Serial.print("MAC: ");
     Serial.print(mac);
-    Serial.print(", RSSI: ");
-    Serial.print(rssi);
-    Serial.println(" dBm;");
+    Serial.print("/");             //Seperates the MAC from the RSSI value
+    //Serial.print(", RSSI: ");
+    Serial.print(rssi);            //Used as a limiter
+    Serial.println(";");
+    //Serial.println(" dBm;");
 
     if(listcount >= macListSize) {
       Serial.println("Too many addresses");
@@ -104,7 +106,7 @@ void setup() {
   esp_wifi_set_promiscuous_rx_cb(&sniffer);
   esp_wifi_set_channel(curChannel, WIFI_SECOND_CHAN_NONE);
 
-  Serial.println("starting!");
+  //Serial.println("starting!");
 }
 
 void showMacAddresses(bool online){
@@ -147,8 +149,8 @@ void loop() {
     listcount = 0;
     curChannel++;
     }
-    Serial.println(String(count) + " Adressen gefunden!");
-    Serial.println("-----");
+    //Serial.println(String(count) + " Adressen gefunden!");
+    //Serial.println("-----");
     count = 0;
     cMac80 = 0;
     delay(5000);
