@@ -24,7 +24,7 @@ void setup() {
     Serial.begin(115200); //Enable UART on ESP32
     //Serial.println("Scanning..."); // Print Scanning
 
-    BLEDevice::init("");ö
+    BLEDevice::init("");
     pBLEScan = BLEDevice::getScan(); //create new scan
     pBLEScan->setAdvertisedDeviceCallbacks(new MyAdvertisedDeviceCallbacks()); //Init Callback Function
     pBLEScan->setActiveScan(true); //active scan uses more power, but get results faster
