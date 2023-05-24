@@ -1,1 +1,1 @@
-# ESP32-WiFi-MAC-Scan
+# ESP32-MAC-Scan
