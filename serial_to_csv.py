@@ -20,11 +20,11 @@ with open(filename, 'w', newline='') as file:
 
         if line == "=====":
             scanning = True
-	    flag = True
+            flag = True
             continue
 
         if line == "-----":
-	    if flag = True
+            if flag == True:
                 scanning = False
                 break
 
