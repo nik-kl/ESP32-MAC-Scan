@@ -21,8 +21,10 @@ with open(filename, 'w', newline='') as file:
 
 file.close()
 
+rows = []
+
 while True:
-       with open(filename, 'a', newline='') as file:
+    with open(filename, 'a', newline='') as file:
         writer = csv.writer(file)
         line = ser.readline().decode().strip()
 
@@ -35,10 +37,16 @@ while True:
         if line == "-----":
             if flag == True:
                 scanning = False
+                for row in rows:
+                    writer.writerow([row.currentTime, row.mac, row.rssi])
         if scanning:
             try:
                 mac, rssi = line.split('/')
-                writer.writerow([currentTime, mac, rssi])
+                rows.append({
+                    currentTime: currentTime,
+                    mac: mac,
+                    rssi: rssi
+                })
             except ValueError:
                 print(f"Invalid line: {line}")
                 continue
