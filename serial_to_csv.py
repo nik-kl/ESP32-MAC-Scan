@@ -38,14 +38,14 @@ while True:
             if flag == True:
                 scanning = False
                 for row in rows:
-                    writer.writerow([row.currentTime, row.mac, row.rssi])
+                    writer.writerow([row['currentTime'], row['mac'], row['rssi']])
         if scanning:
             try:
                 mac, rssi = line.split('/')
                 rows.append({
-                    currentTime: currentTime,
-                    mac: mac,
-                    rssi: rssi
+                    'currentTime': currentTime,
+                    'mac': mac,
+                    'rssi': rssi
                 })
             except ValueError:
                 print(f"Invalid line: {line}")
