@@ -1,12 +1,16 @@
 #! /usr/bin/python3
 
-import serial
 import csv
+import time
+import serial
 
-ser = serial.Serial('/dev/ttyUSB0', 115200)
+#ser = serial.Serial('/dev/ttyUSB0', 115200)
+ser = serial.Serial('COM5', 115200)
 
 filename = "mac_data.csv"
-header = ["MAC", "RSSI"]
+header = ["TIME", "MAC", "RSSI"]
+
+currentTime = time.time()
 
 with open(filename, 'w', newline='') as file:
     writer = csv.writer(file)
@@ -15,23 +19,34 @@ with open(filename, 'w', newline='') as file:
     scanning = False
     flag = False
 
-    while True:
+file.close()
+
+rows = []
+
+while True:
+    with open(filename, 'a', newline='') as file:
+        writer = csv.writer(file)
         line = ser.readline().decode().strip()
 
-        if line == "=====":
+        if line == "W=====":
             scanning = True
-	    flag = True
+            flag = True
+            print("Scanning...")
+            currentTime = time.time()
             continue
-
         if line == "-----":
-	    if flag = True
+            if flag == True:
                 scanning = False
-                break
-
+                for row in rows:
+                    writer.writerow([row['currentTime'], row['mac'], row['rssi']])
         if scanning:
             try:
                 mac, rssi = line.split('/')
-                writer.writerow([mac, rssi])
+                rows.append({
+                    'currentTime': currentTime,
+                    'mac': mac,
+                    'rssi': rssi
+                })
             except ValueError:
                 print(f"Invalid line: {line}")
                 continue
